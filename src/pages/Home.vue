@@ -69,7 +69,7 @@
     </div>
     <div class="container">
       <div class="section">
-        <div class="bricklayer columns">
+        <div class="columns is-multiline">
           <p v-if="!filteredMoives.length">
             No movies found...
           </p>
@@ -82,8 +82,6 @@
     <Footer/>
   </div>
 </template>
-
-<style src="../assets/libs/bricklayer/bricklayer.css"></style>
 
 <script>
 import movies from "../data/movies.json";
@@ -110,8 +108,7 @@ export default {
         Genre: '',
         Director: '',
         Language: ''
-      },
-      bricklayer: null
+      }
     };
   },
   beforeCreate: function() {
@@ -119,20 +116,8 @@ export default {
       this.$router.push({ path: '/' });
     }
   },
-  mounted: function() {
-    this.$nextTick(function() {
-        if(this.$parent.isAuthenticated && this.movies.length) {
-          //this.bricklayer = new window.Bricklayer(document.querySelector(".bricklayer"));
-        }
-      });
-  },
+  
   methods: {
-    bricklayerInit() {
-      if(this.bricklayer) {
-        this.bricklayer.destroy();
-      }
-      this.bricklayer = new window.Bricklayer(document.querySelector(".bricklayer"));
-    },
     onFilter(e) {
       let validFilters = {};
 
@@ -163,11 +148,9 @@ export default {
         this.isFilterApplied = true;
 
         this.filteredMoives.splice(0, this.filteredMoives.length, ...newFilteredMovies);
-        //this.bricklayerInit();
       } else {
         this.isFilterApplied = false;
         this.filteredMoives.splice(0, this.filteredMoives.length, ...this.movies);
-        //this.bricklayerInit();
       }
 
       e.preventDefault();
